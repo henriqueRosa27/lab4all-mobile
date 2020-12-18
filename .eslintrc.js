@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint", "prettier"],
   rules: {
-    "prettier/prettier": "error"
+    semi: [2, "always"]
   },
   settings: {
     "import/resolver": {
@@ -32,4 +32,4 @@ module.exports = {
       version: "detect"
     }
   }
-}
+};

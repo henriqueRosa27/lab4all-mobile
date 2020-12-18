@@ -6,12 +6,13 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "react": "16.13.1",
-    "react-native": "0.63.4"
+    "react-native": "0.63.4",
+    "react-native-gesture-handler": "^1.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -20,6 +21,7 @@
     "@types/jest": "^26.0.19",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.63.40",
+    "@types/react-native-dotenv": "^0.2.0",
     "@types/react-test-renderer": "^17.0.0",
     "babel-jest": "^26.6.3",
     "eslint": "^7.15.0",
