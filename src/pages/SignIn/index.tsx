@@ -1,22 +1,23 @@
 import React, { FC } from "react";
-import { ScrollView, TextInput, Image, Text, View } from "react-native";
-import { RectButton } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TextInput,
+  Image,
+  Text,
+  View,
+  ActivityIndicator
+} from "react-native";
 
-import { signIn } from "../../services/sessionService";
+import { ButtonComponent } from "../../components";
+import { useAuth } from "../../hooks/AuthContext";
 import Logo from "../../assets/logo.png";
 import styles from "./styles";
 
 const App: FC = () => {
+  const { signIn, loading } = useAuth();
   const _calldata = async () => {
-    try {
-      console.log("antes de chamar api");
-      const data = await signIn({ email: "t@t.com", password: "12345678" });
-      console.log("depois de chamar api");
-      console.log(data);
-    } catch (e) {
-      console.log("erro ao chamar api");
-      console.log(e);
-    }
+    const data = { email: "t@t.com", password: "12345678" };
+    await signIn(data);
   };
 
   return (
@@ -33,6 +34,7 @@ const App: FC = () => {
           placeholder="E-mail"
           autoCompleteType="email"
           keyboardType="email-address"
+          editable={!loading}
         />
         <Text style={styles.label}>Senha</Text>
         <TextInput
@@ -40,10 +42,15 @@ const App: FC = () => {
           placeholder="Senha"
           autoCompleteType="password"
           secureTextEntry={true}
+          editable={!loading}
         />
-        <RectButton style={styles.button} onPress={_calldata}>
-          <Text style={styles.buttonText}>Login</Text>
-        </RectButton>
+        <ButtonComponent onPress={_calldata}>
+          {loading ? (
+            <ActivityIndicator color="#fff" size="large" />
+          ) : (
+            <Text style={styles.buttonText}>Login</Text>
+          )}
+        </ButtonComponent>
       </ScrollView>
     </>
   );

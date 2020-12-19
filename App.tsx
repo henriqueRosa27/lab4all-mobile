@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { StatusBar } from "react-native";
 import { SigninPage } from "./src/pages";
+import AppProvider from "./src/hooks";
 
 const App: FC = () => {
   return (
@@ -10,7 +11,9 @@ const App: FC = () => {
         translucent
         barStyle="dark-content"
       />
-      <SigninPage />
+      <AppProvider>
+        <SigninPage />
+      </AppProvider>
     </>
   );
 };

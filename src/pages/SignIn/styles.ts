@@ -31,14 +31,6 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
     color: "#000"
   },
-  button: {
-    backgroundColor: "#4d6e92",
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 56,
-    marginTop: 32
-  },
   buttonText: {
     fontSize: 16,
     color: "#FFF"
