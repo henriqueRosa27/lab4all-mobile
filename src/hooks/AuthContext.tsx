@@ -69,7 +69,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
       setLoading(true);
       const { token, user } = await signInService({ email, password });
 
-      console.log({ token, user });
 
       await AsyncStorage.multiSet([
         ["@lab4all:token", token],

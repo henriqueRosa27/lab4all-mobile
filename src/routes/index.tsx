@@ -1,23 +1,29 @@
-import React, { FC } from "react"
-import { SafeAreaView, StyleSheet, Text, StatusBar } from "react-native"
+import React, { FC } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import "react-native-gesture-handler";
 
-const App: FC = () => {
+import { SignInPage, SignUpPage } from "../pages";
+
+const Stack = createStackNavigator();
+
+const Routes: FC = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text style={styles.sectionTitle}>Step One</Text>
-      </SafeAreaView>
-    </>
-  )
-}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="SignInPage">
+        <Stack.Screen
+          name="SignInPage"
+          component={SignInPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignUpPage"
+          component={SignUpPage}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-const styles = StyleSheet.create({
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "600",
-    color: "#000"
-  }
-})
-
-export default App
+export default Routes;

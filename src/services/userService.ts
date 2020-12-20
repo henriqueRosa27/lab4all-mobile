@@ -16,6 +16,6 @@ interface SignInResponse {
 }
 
 export const signIn = async (data: SignInData): Promise<SignInResponse> => {
-  const response = await api.post("/session/login", data);
+  const response = await api.post("/user", data);
   return response.data;
 };
