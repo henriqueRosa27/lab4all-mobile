@@ -7,18 +7,46 @@ import {
   View,
   ActivityIndicator
 } from "react-native";
+import { useForm } from "react-hook-form";
 
-import { ButtonComponent } from "../../components";
+import { ButtonComponent, TextInputComponent } from "../../components";
 import { useAuth } from "../../hooks/AuthContext";
 import Logo from "../../assets/logo.png";
 import styles from "./styles";
 
+type FormData = {
+  email: string;
+  password: string;
+};
+
+const rules = {
+  email: {
+    required: "Campo obrigatório",
+    maxLength: { value: 50, message: "Máximo de 50 caracteres" },
+    pattern: {
+      value: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+      message: "E-mail inválido"
+    }
+  },
+  password: {
+    required: "Campo obrigatório",
+    minLength: { value: 8, message: "Mínimo de 8 caracteres" },
+    maxLength: { value: 16, message: "Máximo de 16 caracteres" }
+  }
+};
+
 const App: FC = () => {
   const { signIn, loading } = useAuth();
-  const _calldata = async () => {
-    const data = { email: "t@t.com", password: "12345678" };
+
+  const _calldata = async (data: FormData) => {
+    console.log(data);
     await signIn(data);
   };
+
+  const { errors, handleSubmit, control, formState } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: { email: undefined, password: undefined }
+  });
 
   return (
     <>
@@ -28,23 +56,32 @@ const App: FC = () => {
         <View style={styles.imageContainer}>
           <Image source={Logo} style={styles.logo} />
         </View>
-        <Text style={styles.label}>E-mail</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
+        <TextInputComponent
+          label={"E-mail *"}
+          control={control}
+          name={"email"}
+          rules={rules.email}
+          placeholder={"Insira seu e-mail"}
           autoCompleteType="email"
           keyboardType="email-address"
           editable={!loading}
+          error={errors?.email?.message}
         />
-        <Text style={styles.label}>Senha</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
+        <TextInputComponent
+          label={"Senha *"}
+          control={control}
+          name={"password"}
+          rules={rules.password}
+          placeholder={"Insira sua senha"}
           autoCompleteType="password"
           secureTextEntry={true}
           editable={!loading}
+          error={errors?.password?.message}
         />
-        <ButtonComponent onPress={_calldata}>
+
+        <ButtonComponent
+          onPress={handleSubmit(_calldata)}
+          enabled={formState.isValid}>
           {loading ? (
             <ActivityIndicator color="#fff" size="large" />
           ) : (

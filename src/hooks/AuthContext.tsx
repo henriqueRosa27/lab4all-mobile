@@ -9,6 +9,7 @@ import React, {
 import AsyncStorage from "@react-native-community/async-storage";
 import api from "../services/api";
 import { signIn as signInService } from "../services/sessionService";
+import { Alert } from "react-native";
 
 interface User {
   id: string;
@@ -79,7 +80,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
 
       setData({ token, user });
     } catch (e) {
-      console.log(e.response);
+      if (e.response.status == 401) {
+        Alert.alert("Erro dados", "E-mail e/ou senha incorretos!");
+      } else if (e.response.status == 404) {
+        Alert.alert(
+          "Erro ao enviar dados",
+          "Favor, valide seus dados e tente novamente!"
+        );
+      } else {
+        Alert.alert("Erro inesperado");
+      }
     } finally {
       setLoading(false);
     }
