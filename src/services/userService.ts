@@ -1,6 +1,8 @@
 import api from "./api";
 
 interface SignInData {
+  name: string;
+  surname: string;
   email: string;
   password: string;
 }
