@@ -1,5 +1,6 @@
 import api from "./api";
 
+import { User } from "../models";
 interface SignInData {
   name: string;
   surname: string;
@@ -8,16 +9,11 @@ interface SignInData {
 }
 
 interface SignInResponse {
-  user: {
-    id: string;
-    name: string;
-    surname: string;
-    email: string;
-  };
+  user: User;
   token: string;
 }
 
-export const signIn = async (data: SignInData): Promise<SignInResponse> => {
+export const create = async (data: SignInData): Promise<SignInResponse> => {
   const response = await api.post("/user", data);
   return response.data;
 };

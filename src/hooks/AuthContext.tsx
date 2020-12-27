@@ -6,32 +6,26 @@ import React, {
   useEffect,
   ReactNode
 } from "react";
-import AsyncStorage from "@react-native-community/async-storage";
-import api from "../services/api";
-import { signIn as signInService } from "../services/sessionService";
 import { Alert } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 
-interface User {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-}
+import api from "../services/api";
+import { User } from "../models";
 
 interface AuthState {
   token: string;
   user: User;
 }
 
-interface signInCredentials {
-  email: string;
-  password: string;
+interface SyncData {
+  token: string;
+  user: User;
 }
 
 interface AuthContextData {
   user: User;
   loading: boolean;
-  signIn(credentials: signInCredentials): Promise<void>;
+  signIn(credentials: SyncData): Promise<void>;
   signOut(): void;
 }
 
@@ -64,31 +58,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     loadStoragedData();
   }, []);
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ user, token }) => {
     try {
       setLoading(true);
-      const { token, user } = await signInService({ email, password });
-
-
       await AsyncStorage.multiSet([
         ["@lab4all:token", token],
         ["@lab4all:user", JSON.stringify(user)]
       ]);
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
-
       setData({ token, user });
     } catch (e) {
-      if (e.response.status == 401) {
-        Alert.alert("Erro dados", "E-mail e/ou senha incorretos!");
-      } else if (e.response.status == 404) {
-        Alert.alert(
-          "Erro ao enviar dados",
-          "Favor, valide seus dados e tente novamente!"
-        );
-      } else {
-        Alert.alert("Erro inesperado");
-      }
+      Alert.alert("Erro inesperado");
     } finally {
       setLoading(false);
     }
@@ -103,7 +83,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{
+        user: data.user,
+        loading,
+        signIn,
+        signOut
+      }}>
       {children}
     </AuthContext.Provider>
   );

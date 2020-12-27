@@ -3,7 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 
-import { SignInPage, SignUpPage } from "../pages";
+import {
+  SignInPage,
+  SignUpPage,
+  ListGroupPage,
+  CreateGroupPage
+} from "../pages";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +24,16 @@ const Routes: FC = () => {
         <Stack.Screen
           name="SignUpPage"
           component={SignUpPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ListGroupPage"
+          component={ListGroupPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CreateGroupPage"
+          component={CreateGroupPage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
