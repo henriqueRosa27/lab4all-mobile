@@ -8,7 +8,8 @@ import {
   SignUpPage,
   ListGroupPage,
   CreateGroupPage,
-  LinkByCodePage
+  LinkByCodePage,
+  DetailsGroupPage
 } from "../pages";
 
 const Stack = createStackNavigator();
@@ -40,6 +41,11 @@ const Routes: FC = () => {
         <Stack.Screen
           name="LinkByCodePage"
           component={LinkByCodePage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DetailsGroupPage"
+          component={DetailsGroupPage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

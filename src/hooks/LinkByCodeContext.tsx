@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 import { linkByCode } from "../services/linkStudentGroup";
 
@@ -38,6 +39,13 @@ const CreateGroupProvider: FC<LinkByCodeProviderProps> = ({
     try {
       setLoading(true);
       await linkByCode({ code });
+
+      Toast.show({
+        type: "success",
+        position: "bottom",
+        text1: "Sucesso",
+        text2: "Você foi vinculado com sucesso"
+      });
 
       navigation.navigate("ListGroupPage");
     } catch (e) {

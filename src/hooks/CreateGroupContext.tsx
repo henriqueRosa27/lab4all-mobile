@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 import { create as createGroupService } from "../services/groupService";
 
@@ -40,6 +41,13 @@ const CreateGroupProvider: FC<CreateGroupProviderProps> = ({
       setLoading(true);
       await createGroupService({ name, description });
 
+      Toast.show({
+        type: "success",
+        position: "bottom",
+        text1: "Sucesso",
+        text2: "Turma cadastrado com sucesso"
+      });
+      
       navigation.navigate("ListGroupPage");
     } catch (e) {
       if (e.response.status == 500) {

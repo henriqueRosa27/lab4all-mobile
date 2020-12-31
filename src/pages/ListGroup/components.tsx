@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 import { useAuth } from "../../hooks/AuthContext";
 import { GroupModel } from "../../models";
@@ -29,6 +30,7 @@ interface CardListProps {
 
 const List: FC<ListProps> = ({ data, loading }: ListProps) => {
   const { user } = useAuth();
+  const navigation = useNavigation();
   return (
     <ScrollView>
       {loading ? (
@@ -46,7 +48,7 @@ const List: FC<ListProps> = ({ data, loading }: ListProps) => {
                 isTeacher={isTeacher}
                 teacherName={group.teacher.name}
                 onPress={() => {
-                  console.log("teste" + group.id);
+                  navigation.navigate("DetailsGroupPage", { id: group.id });
                 }}
               />
             );
