@@ -3,6 +3,7 @@ import SignUpPage from "./SignUp";
 import ListGroupPage from "./ListGroup";
 import CreateGroupPage from "./CreateGroup";
 import LinkByCodePage from "./LinkByCode";
+import LinkByEmailPage from "./LinkByEmail";
 import DetailsGroupPage from "./DetailsGroup";
 
 export {
@@ -11,5 +12,6 @@ export {
   ListGroupPage,
   CreateGroupPage,
   LinkByCodePage,
+  LinkByEmailPage,
   DetailsGroupPage
 };

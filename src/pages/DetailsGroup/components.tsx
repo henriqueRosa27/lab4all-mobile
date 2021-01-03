@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { format } from "date-fns";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 import { useDetailsGroup } from "../../hooks/DetailsGroupContext";
@@ -17,12 +18,14 @@ interface CardListProps {
 }
 
 const ButtonsDetailsGroup: FC = () => {
+  const { groupData } = useDetailsGroup();
+  const navigation = useNavigation();
   return (
     <View>
       <Text
         style={styles.createAction}
         onPress={() => {
-          console.log("clicou vincular aluno");
+          navigation.navigate("LinkByEmailPage", { idClass: groupData.id });
         }}>
         Vincular aluno
       </Text>

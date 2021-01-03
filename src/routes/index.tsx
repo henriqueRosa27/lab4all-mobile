@@ -9,6 +9,7 @@ import {
   ListGroupPage,
   CreateGroupPage,
   LinkByCodePage,
+  LinkByEmailPage,
   DetailsGroupPage
 } from "../pages";
 
@@ -46,6 +47,11 @@ const Routes: FC = () => {
         <Stack.Screen
           name="DetailsGroupPage"
           component={DetailsGroupPage}
+          options={{ headerShown: false }}
+        />
+         <Stack.Screen
+          name="LinkByEmailPage"
+          component={LinkByEmailPage}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

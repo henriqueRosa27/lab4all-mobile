@@ -10,44 +10,45 @@ import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 
-import { linkByCode } from "../services/linkStudentGroup";
+import { linkByEmail } from "../services/linkStudentGroup";
 
-interface LinkByCodeData {
-  code: string;
+interface LinkByEmailData {
+  email: string;
+  idClass: string;
 }
 
-interface LinkByCodeContextData {
+interface LinkByEmailContextData {
   loading: boolean;
-  link(data: LinkByCodeData): Promise<void>;
+  link(data: LinkByEmailData): Promise<void>;
 }
 
-interface LinkByCodeProviderProps {
+interface LinkByEmailProviderProps {
   children: ReactNode;
 }
 
-const LinkByCodeContext = createContext<LinkByCodeContextData>(
-  {} as LinkByCodeContextData
+const LinkByEmailContext = createContext<LinkByEmailContextData>(
+  {} as LinkByEmailContextData
 );
 
-const LinkByCodeProvider: FC<LinkByCodeProviderProps> = ({
+const LinkByEmailProvider: FC<LinkByEmailProviderProps> = ({
   children
-}: LinkByCodeProviderProps) => {
+}: LinkByEmailProviderProps) => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const link = useCallback(async ({ code }) => {
+  const link = useCallback(async ({ email, idClass  }) => {
     try {
       setLoading(true);
-      await linkByCode({ code });
+      await linkByEmail({ email, idClass });
 
       Toast.show({
         type: "success",
         position: "bottom",
         text1: "Sucesso",
-        text2: "Você foi vinculado com sucesso"
+        text2: "Aluno vinculado com sucesso"
       });
 
-      navigation.navigate("ListGroupPage");
+      navigation.goBack();
     } catch (e) {
       if (e.response.status == 500) {
         Alert.alert(
@@ -74,14 +75,14 @@ const LinkByCodeProvider: FC<LinkByCodeProviderProps> = ({
     }
   }, []);
   return (
-    <LinkByCodeContext.Provider value={{ loading, link }}>
+    <LinkByEmailContext.Provider value={{ loading, link }}>
       {children}
-    </LinkByCodeContext.Provider>
+    </LinkByEmailContext.Provider>
   );
 };
 
-export function useLinkByCode(): LinkByCodeContextData {
-  const context = useContext(LinkByCodeContext);
+export function useLinkByEmail(): LinkByEmailContextData {
+  const context = useContext(LinkByEmailContext);
 
   if (!context) {
     throw new Error("useAuth must be used within a SingUpProviderProps");
@@ -90,4 +91,4 @@ export function useLinkByCode(): LinkByCodeContextData {
   return context;
 }
 
-export default LinkByCodeProvider;
+export default LinkByEmailProvider;
