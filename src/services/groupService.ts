@@ -16,3 +16,8 @@ export const create = async (data: CreateGroupData): Promise<GroupModel> => {
   const response = await api.post("/class", data);
   return response.data;
 };
+
+export const getById = async (id: string): Promise<GroupModel> => {
+  const response = await api.get("/class/" + id);
+  return response.data;
+};

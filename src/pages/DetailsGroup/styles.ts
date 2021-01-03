@@ -39,5 +39,41 @@ export default StyleSheet.create({
     marginTop: 15,
     marginBottom: 5,
     textDecorationLine: "underline"
+  },
+  card: {
+    display: "flex",
+    backgroundColor: "#fff",
+    padding: 10,
+    width: Dimensions.get("screen").width - 40,
+    marginVertical: 5,
+    borderRadius: 7.5,
+    minHeight: 50,
+    shadowColor: "#e6e6e6",
+    shadowOpacity: 22,
+    shadowRadius: 2,
+    flexDirection: "row"
+  },
+  status: {
+    display: "flex",
+    alignSelf: "center",
+    paddingHorizontal: 10
+  },
+  titleCard: {
+    fontWeight: "bold",
+    marginBottom: 10,
+    fontSize: 17,
+    color: "#000"
+  },
+  content: {
+    display: "flex",
+    flex: 1
+  },
+  descriptionCard: {},
+  date: {
+    marginTop: 10,
+    flexDirection: "row",
+  },
+  textDate: {
+    marginLeft: 5
   }
 });

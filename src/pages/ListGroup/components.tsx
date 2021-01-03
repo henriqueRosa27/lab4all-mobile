@@ -46,7 +46,7 @@ const List: FC<ListProps> = ({ data, loading }: ListProps) => {
                 description={group.description}
                 code={group.code}
                 isTeacher={isTeacher}
-                teacherName={group.teacher.name}
+                teacherName={`${group.teacher.name} ${group.teacher.surname}`}
                 onPress={() => {
                   navigation.navigate("DetailsGroupPage", { id: group.id });
                 }}
