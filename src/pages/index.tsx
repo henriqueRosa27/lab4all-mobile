@@ -5,6 +5,7 @@ import CreateGroupPage from "./CreateGroup";
 import LinkByCodePage from "./LinkByCode";
 import LinkByEmailPage from "./LinkByEmail";
 import DetailsGroupPage from "./DetailsGroup";
+import CreateActivityPage from "./CreateActivity";
 
 export {
   SignInPage,
@@ -13,5 +14,6 @@ export {
   CreateGroupPage,
   LinkByCodePage,
   LinkByEmailPage,
-  DetailsGroupPage
+  DetailsGroupPage,
+  CreateActivityPage
 };

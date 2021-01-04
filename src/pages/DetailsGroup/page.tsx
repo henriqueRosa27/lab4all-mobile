@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useIsFocused } from "@react-navigation/native";
 
 import styles from "./styles";
 import { ButtonsDetailsGroup, ListActivities } from "./components";
@@ -23,6 +23,11 @@ const DetailsGroup: FC = () => {
   useEffect(() => {
     loadData(id);
   }, []);
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    loadData(id);
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>

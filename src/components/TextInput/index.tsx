@@ -2,7 +2,8 @@ import React, { FC } from "react";
 import {
   TextInput as TextInputRN,
   Text,
-  KeyboardTypeOptions
+  KeyboardTypeOptions,
+  View
 } from "react-native";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
 
@@ -13,7 +14,7 @@ interface TextInputProps {
   defaultValue?: string | undefined;
   control: Control<Record<string, any>>;
   name: string;
-  rules: Exclude<
+  rules?: Exclude<
     RegisterOptions,
     "valueAsNumber" | "valueAsDate" | "setValueAs"
   >;
@@ -35,7 +36,8 @@ interface TextInputProps {
   keyboardType?: KeyboardTypeOptions;
   editable: boolean;
   secureTextEntry?: boolean;
-  error: string | undefined;
+  error?: string | undefined;
+  showSoftInputOnFocus?: boolean;
 }
 
 const TextInput: FC<TextInputProps> = ({
@@ -49,7 +51,8 @@ const TextInput: FC<TextInputProps> = ({
   editable,
   keyboardType,
   secureTextEntry = false,
-  error
+  error,
+  showSoftInputOnFocus = true
 }: TextInputProps) => {
   return (
     <>
@@ -60,6 +63,7 @@ const TextInput: FC<TextInputProps> = ({
         ]}>
         {label}
       </Text>
+
       <Controller
         defaultValue={defaultValue}
         control={control}
@@ -80,6 +84,7 @@ const TextInput: FC<TextInputProps> = ({
             onChangeText={(value: string) => {
               onChange(value);
             }}
+            showSoftInputOnFocus={showSoftInputOnFocus}
           />
         )}
       />

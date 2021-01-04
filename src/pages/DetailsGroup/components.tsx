@@ -3,7 +3,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { format } from "date-fns";
+import { format, toDate } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
@@ -32,7 +32,7 @@ const ButtonsDetailsGroup: FC = () => {
       <Text
         style={styles.createAction}
         onPress={() => {
-          console.log("clicou ciar atividade");
+          navigation.navigate("CreateActivityPage", { idClass: groupData.id });
         }}>
         Criar nova Atividade
       </Text>
@@ -98,7 +98,7 @@ const CardList: FC<CardListProps> = ({
           <View style={styles.date}>
             <Ionicons name="calendar-outline" size={24} />
             <Text style={styles.textDate}>
-              {format(deadline, "  dd/MM/yyyy hh:mm")}
+              {format(new Date(deadline), "  dd/MM/yyyy hh:mm")}
             </Text>
           </View>
         )}
