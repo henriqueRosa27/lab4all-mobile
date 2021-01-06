@@ -10,7 +10,7 @@ import styles from "./styles";
 
 interface TextInputProps {
   label: string;
-  defaultValue?: string | undefined;
+  defaultValue?: string | undefined | null;
   control: Control<Record<string, unknown>>;
   name: string;
   rules?: Exclude<
@@ -39,11 +39,13 @@ interface TextInputProps {
   showSoftInputOnFocus?: boolean;
   isLowerCase?: boolean;
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
+  multiline?: boolean;
+  numberOfLines?: number;
 }
 
 const TextInput: FC<TextInputProps> = ({
   label,
-  defaultValue = undefined,
+  defaultValue = null,
   control,
   name,
   rules,
@@ -55,7 +57,9 @@ const TextInput: FC<TextInputProps> = ({
   error,
   showSoftInputOnFocus = true,
   isLowerCase = false,
-  autoCapitalize = undefined
+  autoCapitalize = undefined,
+  multiline = undefined,
+  numberOfLines = undefined
 }: TextInputProps) => {
   return (
     <>
@@ -89,6 +93,8 @@ const TextInput: FC<TextInputProps> = ({
             onChangeText={(value: string) => {
               onChange(value);
             }}
+            multiline={multiline}
+            numberOfLines={numberOfLines}
             showSoftInputOnFocus={showSoftInputOnFocus}
           />
         )}

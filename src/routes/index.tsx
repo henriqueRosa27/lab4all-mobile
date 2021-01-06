@@ -12,7 +12,8 @@ import {
   LinkByCodePage,
   LinkByEmailPage,
   DetailsGroupPage,
-  CreateActivityPage
+  CreateActivityPage,
+  AnswerActivityPage
 } from "../pages";
 
 const Stack = createStackNavigator();
@@ -52,6 +53,11 @@ const Routes: FC = () => {
             <Stack.Screen
               name="CreateActivityPage"
               component={CreateActivityPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AnswerActivityPage"
+              component={AnswerActivityPage}
               options={{ headerShown: false }}
             />
           </>
