@@ -2,8 +2,7 @@ import React, { FC } from "react";
 import {
   TextInput as TextInputRN,
   Text,
-  KeyboardTypeOptions,
-  View
+  KeyboardTypeOptions
 } from "react-native";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
 
@@ -11,7 +10,7 @@ import styles from "./styles";
 
 interface TextInputProps {
   label: string;
-  defaultValue?: string | undefined;
+  defaultValue?: string | null;
   control: Control<Record<string, any>>;
   name: string;
   rules?: Exclude<
@@ -38,11 +37,13 @@ interface TextInputProps {
   secureTextEntry?: boolean;
   error?: string | undefined;
   showSoftInputOnFocus?: boolean;
+  multiline?: boolean;
+  numberOfLines?: number;
 }
 
 const TextInput: FC<TextInputProps> = ({
   label,
-  defaultValue = undefined,
+  defaultValue = null,
   control,
   name,
   rules,
@@ -52,7 +53,9 @@ const TextInput: FC<TextInputProps> = ({
   keyboardType,
   secureTextEntry = false,
   error,
-  showSoftInputOnFocus = true
+  showSoftInputOnFocus = true,
+  multiline = undefined,
+  numberOfLines = undefined
 }: TextInputProps) => {
   return (
     <>
@@ -84,6 +87,8 @@ const TextInput: FC<TextInputProps> = ({
             onChangeText={(value: string) => {
               onChange(value);
             }}
+            multiline={multiline}
+            numberOfLines={numberOfLines}
             showSoftInputOnFocus={showSoftInputOnFocus}
           />
         )}
