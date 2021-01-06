@@ -58,7 +58,7 @@ const Routes: FC = () => {
               component={CreateActivityPage}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="AnswerActivityPage"
               component={AnswerActivityPage}
               options={{ headerShown: false }}
