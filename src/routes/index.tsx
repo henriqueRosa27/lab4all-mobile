@@ -12,7 +12,8 @@ import {
   LinkByCodePage,
   LinkByEmailPage,
   DetailsGroupPage,
-  CreateActivityPage
+  CreateActivityPage,
+  AnswerActivityPage
 } from "../pages";
 import { DrawerComponent } from "../components";
 
@@ -55,6 +56,11 @@ const Routes: FC = () => {
             <Drawer.Screen
               name="CreateActivityPage"
               component={CreateActivityPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AnswerActivityPage"
+              component={AnswerActivityPage}
               options={{ headerShown: false }}
             />
           </>
