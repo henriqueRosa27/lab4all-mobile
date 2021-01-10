@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
   },
   inputBorderError: {
     borderColor: "#e63900"
+  },
+  lowerCase: {
+    textTransform: "lowercase"
   }
 });
 

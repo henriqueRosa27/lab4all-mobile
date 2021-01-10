@@ -37,7 +37,7 @@ const GroupList: FC = () => {
           onPress={() => {
             navigation.navigate("LinkByCodePage");
           }}>
-          Se vincular a muma turma
+          Participar de uma turma
         </Text>
         <Text
           style={styles.createAction}

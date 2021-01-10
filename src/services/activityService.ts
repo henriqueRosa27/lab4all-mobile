@@ -9,8 +9,13 @@ interface ActivityCreateData {
   idClass: string;
 }
 
-export const get = async (id: string): Promise<ActivityModel[]> => {
-  const response = await api.get(`/activity/${id}/by-class`);
+export const getForTeacher = async (id: string): Promise<ActivityModel[]> => {
+  const response = await api.get(`/activity/${id}/by-class/for-teacher`);
+  return response.data;
+};
+
+export const getForStudent = async (id: string): Promise<ActivityModel[]> => {
+  const response = await api.get(`/activity/${id}/by-class/fot-student`);
   return response.data;
 };
 

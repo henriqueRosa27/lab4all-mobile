@@ -55,6 +55,8 @@ const LinkByCode: FC = () => {
         autoCompleteType="name"
         editable={!loading}
         error={errors?.code?.message}
+        isLowerCase={true}
+        autoCapitalize={"none"}
       />
 
       <ButtonComponent

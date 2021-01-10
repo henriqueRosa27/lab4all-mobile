@@ -11,6 +11,7 @@ export interface GroupModel {
   description: string;
   code: string;
   teacher: User;
+  totalStudents: number;
 }
 
 export interface ActivityModel {
@@ -18,6 +19,8 @@ export interface ActivityModel {
   name: string;
   description: string;
   deadline: Date | undefined;
+  totalAnswer: number;
+  hasAnswer: boolean;
 }
 
 export interface AnswerActivityModel {

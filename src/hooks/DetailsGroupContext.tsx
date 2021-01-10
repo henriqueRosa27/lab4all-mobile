@@ -8,8 +8,9 @@ import React, {
 } from "react";
 import { Alert } from "react-native";
 
+import { useAuth } from "./AuthContext";
 import { getById } from "../services/groupService";
-import { get } from "../services/activityService";
+import { getForStudent, getForTeacher } from "../services/activityService";
 import { GroupModel, ActivityModel } from "../models";
 
 interface DetailsGroupContextData {
@@ -33,14 +34,20 @@ const DetailsGroupProvider: FC<DetailsGroupContextProps> = ({
   const [loading, setLoading] = useState(false);
   const [groupData, setGroupData] = useState<GroupModel>({} as GroupModel);
   const [activitiesData, setActivitiesData] = useState<ActivityModel[]>([]);
+  const { user } = useAuth();
 
-  const loadData = useCallback(async (id) => {
+  const loadData = useCallback(async id => {
     try {
       setLoading(true);
       const group = await getById(id);
-      const activities = await get(id);
       setGroupData(group);
-      setActivitiesData(activities);
+      if (group.teacher.id === user.id) {
+        const activities = await getForTeacher(id);
+        setActivitiesData(activities);
+      } else {
+        const activities = await getForStudent(id);
+        setActivitiesData(activities);
+      }
     } catch (e) {
       Alert.alert(
         "Erro Servidor",
@@ -51,7 +58,8 @@ const DetailsGroupProvider: FC<DetailsGroupContextProps> = ({
     }
   }, []);
   return (
-    <DetailsGroupContext.Provider value={{ loading, loadData, groupData, activitiesData }}>
+    <DetailsGroupContext.Provider
+      value={{ loading, loadData, groupData, activitiesData }}>
       {children}
     </DetailsGroupContext.Provider>
   );

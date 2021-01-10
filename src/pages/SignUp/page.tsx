@@ -6,41 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { ButtonComponent, TextInputComponent } from "../../components";
 import { useSignUp } from "../../hooks/SignUpContext";
 import Logo from "../../assets/logo.png";
+import { FormData, rules } from "./helpers";
 import styles from "./styles";
-
-type FormData = {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
-const rules = {
-  name: {
-    required: "Campo obrigatório",
-    minLength: { value: 3, message: "Mínimo de 3 caracteres" },
-    maxLength: { value: 20, message: "Máximo de 20 caracteres" }
-  },
-  surname: {
-    required: "Campo obrigatório",
-    minLength: { value: 3, message: "Mínimo de 3 caracteres" },
-    maxLength: { value: 50, message: "Máximo de 50 caracteres" }
-  },
-  email: {
-    required: "Campo obrigatório",
-    maxLength: { value: 50, message: "Máximo de 50 caracteres" },
-    pattern: {
-      value: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-      message: "E-mail inválido"
-    }
-  },
-  password: {
-    required: "Campo obrigatório",
-    minLength: { value: 8, message: "Mínimo de 8 caracteres" },
-    maxLength: { value: 16, message: "Máximo de 16 caracteres" }
-  }
-};
 
 const SignUp: FC = () => {
   const navigation = useNavigation();
@@ -103,6 +70,7 @@ const SignUp: FC = () => {
           keyboardType="email-address"
           editable={!loading}
           error={errors?.email?.message}
+          autoCapitalize={"none"}
         />
         <TextInputComponent
           label={"Senha *"}
@@ -114,6 +82,7 @@ const SignUp: FC = () => {
           secureTextEntry={true}
           editable={!loading}
           error={errors?.password?.message}
+          autoCapitalize={"none"}
         />
         <TextInputComponent
           label={"Confirmação de Senha *"}
@@ -129,6 +98,7 @@ const SignUp: FC = () => {
           secureTextEntry={true}
           editable={!loading}
           error={errors?.confirmPassword?.message}
+          autoCapitalize={"none"}
         />
 
         <ButtonComponent

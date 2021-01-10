@@ -62,6 +62,7 @@ const SignIn: FC = () => {
           keyboardType="email-address"
           editable={!loading}
           error={errors?.email?.message}
+          autoCapitalize={"none"}
         />
         <TextInputComponent
           label={"Senha *"}
@@ -73,6 +74,7 @@ const SignIn: FC = () => {
           secureTextEntry={true}
           editable={!loading}
           error={errors?.password?.message}
+          autoCapitalize={"none"}
         />
 
         <ButtonComponent

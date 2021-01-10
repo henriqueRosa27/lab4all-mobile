@@ -25,6 +25,16 @@ export default StyleSheet.create({
     color: "#2d5f96",
     fontWeight: "400"
   },
+  code: {
+    fontSize: 16,
+    color: "#2d5f96",
+    fontWeight: "400",
+    marginTop: 3
+  },
+  codeCopy: {
+    textDecorationColor: "#2d5f96",
+    textDecorationLine: "underline"
+  },
   description: {
     textAlign: "center",
     marginVertical: 15
@@ -68,10 +78,13 @@ export default StyleSheet.create({
     display: "flex",
     flex: 1
   },
+  contentToTeacher: {
+    alignItems: "center"
+  },
   descriptionCard: {},
   date: {
     marginTop: 10,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   textDate: {
     marginLeft: 5

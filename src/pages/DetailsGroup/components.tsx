@@ -3,7 +3,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { format, toDate } from "date-fns";
+import { format } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
@@ -15,6 +15,9 @@ interface CardListProps {
   description: string;
   deadline: Date | undefined;
   onPress: () => void;
+  isTeacher: boolean;
+  totalStudents: number;
+  totalAnswer: number;
 }
 
 const ButtonsDetailsGroup: FC = () => {
@@ -56,6 +59,9 @@ const ListActivities: FC = () => {
               name={activity.name}
               description={activity.description}
               deadline={activity.deadline}
+              isTeacher={isTeacher}
+              totalAnswer={activity.totalAnswer}
+              totalStudents={groupData.totalStudents}
               onPress={() => {
                 if (isTeacher) {
                   console.log(activity.id);
@@ -75,7 +81,10 @@ const CardList: FC<CardListProps> = ({
   name,
   description,
   deadline,
-  onPress
+  onPress,
+  isTeacher,
+  totalAnswer,
+  totalStudents
 }: CardListProps) => {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
@@ -103,6 +112,14 @@ const CardList: FC<CardListProps> = ({
           </View>
         )}
       </View>
+      {isTeacher && (
+        <View style={styles.contentToTeacher}>
+          <Text style={styles.titleCard}>
+            {totalAnswer}/{totalStudents}
+          </Text>
+          <Text style={styles.descriptionCard}>Responderam</Text>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };

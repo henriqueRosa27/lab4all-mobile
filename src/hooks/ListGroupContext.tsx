@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { Alert } from "react-native";
 
+import { useAuth } from "./AuthContext";
 import { get } from "../services/groupService";
 import { GroupModel } from "../models";
 
@@ -30,6 +31,7 @@ const ListGroupProvider: FC<ListGroupContextProps> = ({
 }: ListGroupContextProps) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<GroupModel[]>([]);
+  const { signOut } = useAuth();
 
   const loadData = useCallback(async () => {
     try {
@@ -37,6 +39,8 @@ const ListGroupProvider: FC<ListGroupContextProps> = ({
       const groupData = await get();
       setData(groupData);
     } catch (e) {
+      console.log(e.response.status);
+
       Alert.alert(
         "Erro Servidor",
         "Ocorreu um erro ao conectar com o servidor. Por favor, tente novamente mais tarde!"

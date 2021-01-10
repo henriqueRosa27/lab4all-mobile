@@ -50,6 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
 
       if (token[1] && user[1]) {
         setData({ token: token[1], user: JSON.parse(user[1]) });
+        api.defaults.headers.authorization = `Bearer ${token[1]}`;
       }
 
       setLoading(false);
@@ -65,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         ["@lab4all:token", token],
         ["@lab4all:user", JSON.stringify(user)]
       ]);
-
+      console.log(token);
       setData({ token, user });
     } catch (e) {
       Alert.alert("Erro inesperado");
@@ -77,7 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(["@lab4all:token", "@lab4all:user"]);
 
-    api.defaults.headers.authorization = null;
+    delete api.defaults.headers.authorization;
 
     setData({} as AuthState);
   }, []);

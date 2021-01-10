@@ -6,6 +6,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
@@ -46,7 +47,7 @@ const List: FC<ListProps> = ({ data, loading }: ListProps) => {
                 description={group.description}
                 code={group.code}
                 isTeacher={isTeacher}
-                teacherName={`${group.teacher.name} ${group.teacher.surname}`}
+                teacherName={`Prof. ${group.teacher.name} ${group.teacher.surname}`}
                 onPress={() => {
                   navigation.navigate("DetailsGroupPage", { id: group.id });
                 }}
@@ -70,7 +71,11 @@ const CardList: FC<CardListProps> = ({
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.status}>
-        <Ionicons name="md-people" color="#4d6e92" size={30} />
+        {isTeacher ? (
+          <FontAwesome5 name="user-graduate" color="#4d6e92" size={30} />
+        ) : (
+          <Ionicons name="md-people" color="#4d6e92" size={30} />
+        )}
       </View>
       <View style={styles.content}>
         <Text style={styles.titleCard}>{name}</Text>

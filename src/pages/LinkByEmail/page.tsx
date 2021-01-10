@@ -65,6 +65,7 @@ const LinkByEmail: FC = () => {
         autoCompleteType="name"
         editable={!loading}
         error={errors?.email?.message}
+        autoCapitalize={"none"}
       />
 
       <ButtonComponent

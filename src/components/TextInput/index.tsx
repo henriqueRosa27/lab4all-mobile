@@ -2,8 +2,7 @@ import React, { FC } from "react";
 import {
   TextInput as TextInputRN,
   Text,
-  KeyboardTypeOptions,
-  View
+  KeyboardTypeOptions
 } from "react-native";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
 
@@ -12,7 +11,7 @@ import styles from "./styles";
 interface TextInputProps {
   label: string;
   defaultValue?: string | undefined;
-  control: Control<Record<string, any>>;
+  control: Control<Record<string, unknown>>;
   name: string;
   rules?: Exclude<
     RegisterOptions,
@@ -38,6 +37,8 @@ interface TextInputProps {
   secureTextEntry?: boolean;
   error?: string | undefined;
   showSoftInputOnFocus?: boolean;
+  isLowerCase?: boolean;
+  autoCapitalize?: "none" | "sentences" | "words" | "characters";
 }
 
 const TextInput: FC<TextInputProps> = ({
@@ -52,7 +53,9 @@ const TextInput: FC<TextInputProps> = ({
   keyboardType,
   secureTextEntry = false,
   error,
-  showSoftInputOnFocus = true
+  showSoftInputOnFocus = true,
+  isLowerCase = false,
+  autoCapitalize = undefined
 }: TextInputProps) => {
   return (
     <>
@@ -73,13 +76,15 @@ const TextInput: FC<TextInputProps> = ({
           <TextInputRN
             style={[
               styles.input,
-              error ? styles.inputBorderError : styles.inputBorder
+              error ? styles.inputBorderError : styles.inputBorder,
+              isLowerCase && styles.lowerCase
             ]}
             placeholder={placeholder}
             autoCompleteType={autoCompleteType}
             keyboardType={keyboardType}
             editable={editable}
             value={value}
+            autoCapitalize={autoCapitalize}
             secureTextEntry={secureTextEntry}
             onChangeText={(value: string) => {
               onChange(value);
