@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { StatusBar } from "react-native";
 import Toast from "react-native-toast-message";
+import { Provider as PaperProvider } from "react-native-paper";
 
 import Routes from "./src/routes";
 import AppProvider from "./src/hooks";
@@ -14,7 +15,9 @@ const App: FC = () => {
         barStyle="dark-content"
       />
       <AppProvider>
-        <Routes />
+        <PaperProvider>
+          <Routes />
+        </PaperProvider>
       </AppProvider>
       <Toast ref={ref => Toast.setRef(ref)} />
     </>

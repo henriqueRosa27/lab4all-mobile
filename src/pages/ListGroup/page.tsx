@@ -35,13 +35,6 @@ const GroupList: FC = () => {
         <Text
           style={styles.createAction}
           onPress={() => {
-            navigation.navigate("LinkByCodePage");
-          }}>
-          Participar de uma turma
-        </Text>
-        <Text
-          style={styles.createAction}
-          onPress={() => {
             navigation.navigate("CreateGroupPage");
           }}>
           Criar nova turma
