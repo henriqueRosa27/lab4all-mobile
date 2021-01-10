@@ -42,7 +42,6 @@ export const SignInProvider: React.FC<SignInProviderProps> = ({
       const { user, token } = await signInService({ email, password });
       await signInAuthConext({ user, token });
 
-
       api.defaults.headers.authorization = `Bearer ${token}`;
 
       navigation.navigate("ListGroupPage");

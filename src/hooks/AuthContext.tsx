@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         ["@lab4all:token", token],
         ["@lab4all:user", JSON.stringify(user)]
       ]);
-      console.log(token);
+
       setData({ token, user });
     } catch (e) {
       Alert.alert("Erro inesperado");

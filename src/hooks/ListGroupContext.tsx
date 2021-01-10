@@ -39,12 +39,14 @@ const ListGroupProvider: FC<ListGroupContextProps> = ({
       const groupData = await get();
       setData(groupData);
     } catch (e) {
-      console.log(e.response.status);
-
-      Alert.alert(
-        "Erro Servidor",
-        "Ocorreu um erro ao conectar com o servidor. Por favor, tente novamente mais tarde!"
-      );
+      if (e.response.status === 401) {
+        signOut();
+      } else {
+        Alert.alert(
+          "Erro Servidor",
+          "Ocorreu um erro ao conectar com o servidor. Por favor, tente novamente mais tarde!"
+        );
+      }
     } finally {
       setLoading(false);
     }

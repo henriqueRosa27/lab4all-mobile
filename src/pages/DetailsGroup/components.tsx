@@ -3,7 +3,7 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { format } from "date-fns";
+import { format, isAfter } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
@@ -18,6 +18,7 @@ interface CardListProps {
   isTeacher: boolean;
   totalStudents: number;
   totalAnswer: number;
+  hasAnswer: boolean;
 }
 
 const ButtonsDetailsGroup: FC = () => {
@@ -62,6 +63,7 @@ const ListActivities: FC = () => {
               isTeacher={isTeacher}
               totalAnswer={activity.totalAnswer}
               totalStudents={groupData.totalStudents}
+              hasAnswer={activity.hasAnswer}
               onPress={() => {
                 if (isTeacher) {
                   console.log(activity.id);
@@ -84,21 +86,51 @@ const CardList: FC<CardListProps> = ({
   onPress,
   isTeacher,
   totalAnswer,
-  totalStudents
+  totalStudents,
+  hasAnswer
 }: CardListProps) => {
-  return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+  const renderIconCardToStudent = () => {
+    let icon: JSX.Element;
+
+    if (hasAnswer) {
+      icon = (
+        <Ionicons
+          name="checkmark-done-circle-outline"
+          color="#74b87b"
+          size={30}
+        />
+      );
+    } else if (!deadline) {
+      icon = (
+        <Ionicons name="ios-remove-circle-outline" color="#000" size={30} />
+      );
+    } else if (isAfter(new Date(deadline), new Date())) {
+      icon = (
+        <Ionicons name="ios-close-circle-outline" color="#fa051d" size={30} />
+      );
+    } else {
+      icon = (
+        <Ionicons name="ios-alert-circle-outline" color="#fcba03" size={30} />
+      );
+    }
+
+    return icon;
+  };
+
+  const renderIconCard = () => {
+    return (
       <View style={styles.status}>
-        {true ? (
+        {isTeacher ? (
           <MaterialIcons name="assignment" size={30} color="#4d6e92" />
         ) : (
-          <Ionicons
-            name="md-checkmark-circle-outline"
-            color="#74b87b"
-            size={30}
-          />
+          renderIconCardToStudent()
         )}
       </View>
+    );
+  };
+  return (
+    <TouchableOpacity style={styles.card} onPress={onPress}>
+      {renderIconCard()}
       <View style={styles.content}>
         <Text style={styles.titleCard}>{name}</Text>
         <Text style={styles.descriptionCard}>{description}</Text>

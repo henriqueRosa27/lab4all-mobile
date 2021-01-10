@@ -15,7 +15,7 @@ export const getForTeacher = async (id: string): Promise<ActivityModel[]> => {
 };
 
 export const getForStudent = async (id: string): Promise<ActivityModel[]> => {
-  const response = await api.get(`/activity/${id}/by-class/fot-student`);
+  const response = await api.get(`/activity/${id}/by-class/for-student`);
   return response.data;
 };
 
