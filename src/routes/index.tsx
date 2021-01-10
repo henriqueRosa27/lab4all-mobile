@@ -73,7 +73,7 @@ const Routes: FC = () => {
               component={SignUpPage}
               options={{ headerShown: false }}
             />
-          </>
+          </> gvhbn
         )}
       </Stack.Navigator>
     </NavigationContainer>
