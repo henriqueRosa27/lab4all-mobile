@@ -1,7 +1,11 @@
 import React, { FC, useEffect } from "react";
 import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useRoute, useIsFocused } from "@react-navigation/native";
+import {
+  useRoute,
+  useIsFocused,
+  useNavigation
+} from "@react-navigation/native";
 import Clipboard from "@react-native-community/clipboard";
 
 import styles from "./styles";
@@ -19,6 +23,9 @@ const DetailsGroup: FC = () => {
   const params = route.params as DetailsGroupRouteParams;
   const { loadData, groupData, loading } = useDetailsGroup();
   const { user } = useAuth();
+  const navigation = useNavigation();
+
+  navigation.setOptions({ title: "Turma " + groupData.name });
 
   const { id } = params;
 

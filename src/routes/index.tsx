@@ -30,32 +30,62 @@ const Routes: FC = () => {
             <Drawer.Screen
               name="ListGroupPage"
               component={ListGroupPage}
-              options={{ headerShown: true }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "Turmas"
+              }}
             />
             <Drawer.Screen
               name="CreateGroupPage"
               component={CreateGroupPage}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "Criar Turma"
+              }}
             />
             <Drawer.Screen
               name="LinkByCodePage"
               component={LinkByCodePage}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "participar de uma turma"
+              }}
             />
             <Drawer.Screen
               name="DetailsGroupPage"
               component={DetailsGroupPage}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "Informações da Turma"
+              }}
             />
             <Drawer.Screen
               name="LinkByEmailPage"
               component={LinkByEmailPage}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "Vincular aluno"
+              }}
             />
             <Drawer.Screen
               name="CreateActivityPage"
               component={CreateActivityPage}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "Criar Atividade"
+              }}
             />
           </>
         ) : (
