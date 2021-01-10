@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useAuth } from "../hooks/AuthContext";
 import "react-native-gesture-handler";
 
@@ -14,42 +14,45 @@ import {
   DetailsGroupPage,
   CreateActivityPage
 } from "../pages";
+import { DrawerComponent } from "../components";
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const Routes: FC = () => {
   const { user } = useAuth();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignInPage">
+      <Drawer.Navigator
+        initialRouteName="SignInPage"
+        drawerContent={props => <DrawerComponent {...props} />}>
         {user ? (
           <>
-            <Stack.Screen
+            <Drawer.Screen
               name="ListGroupPage"
               component={ListGroupPage}
-              options={{ headerShown: false }}
+              options={{ headerShown: true }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="CreateGroupPage"
               component={CreateGroupPage}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="LinkByCodePage"
               component={LinkByCodePage}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="DetailsGroupPage"
               component={DetailsGroupPage}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="LinkByEmailPage"
               component={LinkByEmailPage}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="CreateActivityPage"
               component={CreateActivityPage}
               options={{ headerShown: false }}
@@ -57,19 +60,19 @@ const Routes: FC = () => {
           </>
         ) : (
           <>
-            <Stack.Screen
+            <Drawer.Screen
               name="SignInPage"
               component={SignInPage}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="SignUpPage"
               component={SignUpPage}
               options={{ headerShown: false }}
             />
           </>
         )}
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
