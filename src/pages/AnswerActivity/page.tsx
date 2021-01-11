@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, Text, View, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import styles from "./styles";
 import { TextInputComponent, ButtonComponent } from "../../components";
 import { Camera } from "./components";
 import { TakePictureResponse } from "react-native-camera";
-//import { useCreateActivity } from "../../hooks/CreateActivityContext";
+import { useAnswerActivity } from "../../hooks/AnswerActivityContext";
 
 import ml from "@react-native-firebase/ml";
 
@@ -19,6 +19,7 @@ type FormData = {
 
 interface DetailsGroupRouteParams {
   idActivity: string;
+  hasAnswer: boolean;
 }
 
 const rules = {
@@ -32,9 +33,16 @@ const rules = {
 const CreateActivity: FC = () => {
   const [cameraIsOpen, setCameraIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { answer, loading, get, loadingGet, data } = useAnswerActivity();
   const navigation = useNavigation();
   const route = useRoute();
-  const params = route.params as DetailsGroupRouteParams;
+  const { idActivity, hasAnswer } = route.params as DetailsGroupRouteParams;
+
+  useEffect(() => {
+    if (hasAnswer) {
+      get(idActivity);
+    }
+  }, []);
 
   const {
     errors,
@@ -50,18 +58,20 @@ const CreateActivity: FC = () => {
     }
   });
 
-  const _callData = async ({ note }: FormData) => {
-    console.log({
+  const _callData = async ({ note, report }: FormData) => {
+    answer({
       note,
-      idActivity: params.idActivity
+      report: report!,
+      idActivity: idActivity,
+      image: selectedImage!
     });
   };
 
   const _onTakePhoto = async (data: TakePictureResponse) => {
     setCameraIsOpen(false);
     setSelectedImage(data.uri);
-    setValue("report", "Aqui irá o texto extraido");
-    //await processDocument(data.uri);
+
+    await processDocument(data.uri);
   };
 
   async function processDocument(path: string) {
@@ -69,12 +79,83 @@ const CreateActivity: FC = () => {
 
     console.log("Found text in document: ", processed.text);
 
+    setValue("report", "Aqui irá o texto extraido");
+
     processed.blocks.forEach(block => {
       console.log("Found block with text: ", block.text);
       console.log("Confidence in block: ", block.confidence);
       console.log("Languages found in block: ", block.recognizedLanguages);
     });
   }
+
+  const renderBody = () => {
+    return (
+      <>
+        {!selectedImage && !hasAnswer ? (
+          <ButtonComponent
+            onPress={() => {
+              setCameraIsOpen(true);
+            }}>
+            <Text style={styles.buttonText}>Inserir foto</Text>
+          </ButtonComponent>
+        ) : (
+          <View style={styles.containerCenter}>
+            <Image
+              source={{ uri: hasAnswer ? data?.image : selectedImage }}
+              style={styles.image}
+            />
+          </View>
+        )}
+        {(selectedImage || hasAnswer) && (
+          <>
+            <TextInputComponent
+              label={"Algo a reportar *"}
+              control={control}
+              name={"note"}
+              placeholder={"Algo a reportar"}
+              autoCompleteType="name"
+              rules={rules.note}
+              editable={!loading && !hasAnswer}
+              error={errors?.note?.message}
+              defaultValue={data?.note}
+            />
+            <TextInputComponent
+              label={"Texto extraido"}
+              control={control}
+              name={"report"}
+              placeholder={"Texto extraido"}
+              autoCompleteType="name"
+              editable={!loading && !hasAnswer}
+              multiline={true}
+              numberOfLines={10}
+              defaultValue={data?.report}
+            />
+          </>
+        )}
+        {!hasAnswer && (
+          <ButtonComponent
+            onPress={handleSubmit(_callData)}
+            enabled={formState.isValid}>
+            {loading ? (
+              <ActivityIndicator color="#fff" size="large" />
+            ) : (
+              <Text style={styles.buttonText}>Concluir</Text>
+            )}
+          </ButtonComponent>
+        )}
+        <ButtonComponent
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          {loading ? (
+            <ActivityIndicator color="#fff" size="large" />
+          ) : (
+            <Text style={styles.buttonText}>Cancelar</Text>
+          )}
+        </ButtonComponent>
+      </>
+    );
+  };
 
   return cameraIsOpen ? (
     <Camera
@@ -96,59 +177,11 @@ const CreateActivity: FC = () => {
           &quot;Concluir&quot;
         </Text>
       </View>
-      <TextInputComponent
-        label={"Algo a reportar *"}
-        control={control}
-        name={"note"}
-        placeholder={"Algo a reportar"}
-        autoCompleteType="name"
-        rules={rules.note}
-        editable={!false}
-        error={errors?.note?.message}
-      />
-
-      {!selectedImage ? (
-        <ButtonComponent
-          onPress={() => {
-            setCameraIsOpen(true);
-          }}>
-          <Text style={styles.buttonText}>Inserir foto</Text>
-        </ButtonComponent>
+      {loadingGet ? (
+        <ActivityIndicator color="#000" size="large" />
       ) : (
-        <View style={styles.containerCenter}>
-          <Image source={{ uri: selectedImage }} style={styles.image} />
-        </View>
+        renderBody()
       )}
-
-      {selectedImage && (
-        <TextInputComponent
-          label={"Texto extraido"}
-          control={control}
-          name={"report"}
-          placeholder={"Texto extraido"}
-          autoCompleteType="name"
-          rules={rules.note}
-          editable={false}
-          multiline={true}
-          numberOfLines={10}
-        />
-      )}
-
-      <ButtonComponent
-        onPress={handleSubmit(_callData)}
-        enabled={formState.isValid}>
-        {false ? (
-          <ActivityIndicator color="#fff" size="large" />
-        ) : (
-          <Text style={styles.buttonText}>Concluir</Text>
-        )}
-      </ButtonComponent>
-      <ButtonComponent
-        onPress={() => {
-          navigation.goBack();
-        }}>
-        <Text style={styles.buttonText}>Cancelar</Text>
-      </ButtonComponent>
     </ScrollView>
   );
 };

@@ -59,13 +59,14 @@ const TextInput: FC<TextInputProps> = ({
   isLowerCase = false,
   autoCapitalize = undefined,
   multiline = undefined,
-  numberOfLines = undefined
+  numberOfLines = undefined,
 }: TextInputProps) => {
   return (
     <>
       <Text
         style={[
           styles.label,
+          
           error ? styles.labelColorError : styles.labelColor
         ]}>
         {label}
@@ -81,7 +82,8 @@ const TextInput: FC<TextInputProps> = ({
             style={[
               styles.input,
               error ? styles.inputBorderError : styles.inputBorder,
-              isLowerCase && styles.lowerCase
+              isLowerCase && styles.lowerCase,
+              !multiline && styles.inputOnlyLine,
             ]}
             placeholder={placeholder}
             autoCompleteType={autoCompleteType}
