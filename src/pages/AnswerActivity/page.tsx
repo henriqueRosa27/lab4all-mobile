@@ -79,7 +79,7 @@ const CreateActivity: FC = () => {
 
     console.log("Found text in document: ", processed.text);
 
-    setValue("report", "Aqui irá o texto extraido");
+    setValue("report", processed.text);
 
     processed.blocks.forEach(block => {
       console.log("Found block with text: ", block.text);
