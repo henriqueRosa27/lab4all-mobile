@@ -25,7 +25,7 @@ const Routes: FC = () => {
     <NavigationContainer>
       <Drawer.Navigator
         initialRouteName="SignInPage"
-        drawerContent={props => <DrawerComponent {...props} />}>
+        drawerContent={(props: any) => <DrawerComponent {...props} />}>
         {user ? (
           <>
             <Drawer.Screen
@@ -55,7 +55,7 @@ const Routes: FC = () => {
                 headerShown: true,
                 headerTitleAlign: "center",
                 headerTintColor: "#4d6e92",
-                title: "participar de uma turma"
+                title: "Participar de uma turma"
               }}
             />
             <Drawer.Screen
