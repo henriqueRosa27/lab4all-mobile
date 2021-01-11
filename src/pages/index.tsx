@@ -6,6 +6,7 @@ import LinkByCodePage from "./LinkByCode";
 import LinkByEmailPage from "./LinkByEmail";
 import DetailsGroupPage from "./DetailsGroup";
 import CreateActivityPage from "./CreateActivity";
+import AnswerActivityPage from "./AnswerActivity";
 
 export {
   SignInPage,
@@ -15,5 +16,6 @@ export {
   LinkByCodePage,
   LinkByEmailPage,
   DetailsGroupPage,
-  CreateActivityPage
+  CreateActivityPage,
+  AnswerActivityPage
 };

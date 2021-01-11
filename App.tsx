@@ -14,6 +14,7 @@ const App: FC = () => {
         translucent
         barStyle="dark-content"
       />
+      
       <AppProvider>
         <PaperProvider>
           <Routes />

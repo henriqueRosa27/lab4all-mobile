@@ -47,6 +47,7 @@ const ButtonsDetailsGroup: FC = () => {
 const ListActivities: FC = () => {
   const { loading, activitiesData, groupData } = useDetailsGroup();
   const { user } = useAuth();
+  const navigation = useNavigation();
   return (
     <ScrollView>
       {loading ? (
@@ -68,7 +69,10 @@ const ListActivities: FC = () => {
                 if (isTeacher) {
                   console.log(activity.id);
                 } else {
-                  console.log("é aluno");
+                  navigation.navigate("AnswerActivityPage", {
+                    idActivity: activity.id,
+                    hasAnswer: activity.hasAnswer
+                  });
                 }
               }}
             />

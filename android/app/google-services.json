@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "117409888900",
+    "project_id": "lab4all-29b19",
+    "storage_bucket": "lab4all-29b19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117409888900:android:e6cb1fbbaa3d8eb47720d1",
+        "android_client_info": {
+          "package_name": "com.lab4all"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117409888900-c94ogp23b6u2b7ig0v3orb36d31pvijo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBakbJ-vTu8kl2jBUBY_ECj_izattXOjIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117409888900-c94ogp23b6u2b7ig0v3orb36d31pvijo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
