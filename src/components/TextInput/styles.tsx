@@ -19,12 +19,14 @@ const styles = StyleSheet.create({
     borderWidth: 1.4,
     borderColor: "#4d6e92",
     borderRadius: 20,
-    height: 56,
     paddingVertical: 18,
     paddingHorizontal: 24,
     marginBottom: 16,
     textAlignVertical: "top",
     color: "#000"
+  },
+  inputOnlyLine: {
+    height: 56
   },
   inputBorder: {
     borderColor: "#4d6e92"

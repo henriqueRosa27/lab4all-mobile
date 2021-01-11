@@ -70,7 +70,8 @@ const ListActivities: FC = () => {
                   console.log(activity.id);
                 } else {
                   navigation.navigate("AnswerActivityPage", {
-                    idActivity: activity.id
+                    idActivity: activity.id,
+                    hasAnswer: activity.hasAnswer
                   });
                 }
               }}
