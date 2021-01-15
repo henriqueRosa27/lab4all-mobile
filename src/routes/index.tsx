@@ -91,7 +91,12 @@ const Routes: FC = () => {
             <Drawer.Screen
               name="AnswerActivityPage"
               component={AnswerActivityPage}
-              options={{ headerShown: false }}
+              options={{
+                headerShown: true,
+                headerTitleAlign: "center",
+                headerTintColor: "#4d6e92",
+                title: "Responder Atividade"
+              }}
             />
           </>
         ) : (
