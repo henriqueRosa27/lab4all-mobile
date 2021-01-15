@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import { ScrollView, Image, Text, View, ActivityIndicator } from "react-native";
+import { ScrollView, Image, Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native-paper";
 
 import { ButtonComponent, TextInputComponent } from "../../components";
 import { useSignIn } from "../../hooks/SignInContext";
@@ -79,12 +80,9 @@ const SignIn: FC = () => {
 
         <ButtonComponent
           onPress={handleSubmit(_calldata)}
-          enabled={formState.isValid}>
-          {loading ? (
-            <ActivityIndicator color="#fff" size="large" />
-          ) : (
-            <Text style={styles.buttonText}>Login</Text>
-          )}
+          enabled={formState.isValid}
+          loading={loading}>
+          <Text style={styles.buttonText}>Login</Text>
         </ButtonComponent>
         <ButtonComponent
           onPress={() => {

@@ -5,6 +5,7 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 import Routes from "./src/routes";
 import AppProvider from "./src/hooks";
+import theme from "./theme";
 
 const App: FC = () => {
   return (
@@ -14,9 +15,9 @@ const App: FC = () => {
         translucent
         barStyle="dark-content"
       />
-      
+
       <AppProvider>
-        <PaperProvider>
+        <PaperProvider theme={theme}>
           <Routes />
         </PaperProvider>
       </AppProvider>

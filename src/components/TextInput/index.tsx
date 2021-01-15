@@ -1,12 +1,7 @@
 import React, { FC } from "react";
-import {
-  TextInput as TextInputRN,
-  Text,
-  KeyboardTypeOptions
-} from "react-native";
+import {  KeyboardTypeOptions } from "react-native";
 import { Controller, Control, RegisterOptions } from "react-hook-form";
-
-import styles from "./styles";
+import { TextInput as TextInputBase, HelperText } from "react-native-paper";
 
 interface TextInputProps {
   label: string;
@@ -59,33 +54,25 @@ const TextInput: FC<TextInputProps> = ({
   isLowerCase = false,
   autoCapitalize = undefined,
   multiline = undefined,
-  numberOfLines = undefined,
+  numberOfLines = undefined
 }: TextInputProps) => {
   return (
     <>
-      <Text
-        style={[
-          styles.label,
-          
-          error ? styles.labelColorError : styles.labelColor
-        ]}>
-        {label}
-      </Text>
-
       <Controller
         defaultValue={defaultValue}
         control={control}
         name={name}
         rules={rules}
         render={({ value, onChange }) => (
-          <TextInputRN
+          <TextInputBase
             style={[
-              styles.input,
-              error ? styles.inputBorderError : styles.inputBorder,
-              isLowerCase && styles.lowerCase,
-              !multiline && styles.inputOnlyLine,
+              isLowerCase && { textTransform: "lowercase" },
+              !multiline && { height: 56 }
             ]}
+            error={Boolean(error)}
+            label={label}
             placeholder={placeholder}
+            mode="outlined"
             autoCompleteType={autoCompleteType}
             keyboardType={keyboardType}
             editable={editable}
@@ -101,9 +88,12 @@ const TextInput: FC<TextInputProps> = ({
           />
         )}
       />
-      {error && (
-        <Text style={[styles.labelError, styles.labelColorError]}>{error}</Text>
-      )}
+      <HelperText
+        type="error"
+        style={{ fontSize: 14 }}
+        visible={Boolean(error)}>
+        {error}
+      </HelperText>
     </>
   );
 };

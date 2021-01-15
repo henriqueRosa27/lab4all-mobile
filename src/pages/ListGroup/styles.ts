@@ -20,12 +20,8 @@ export default StyleSheet.create({
     borderColor: "#ccc",
     borderWidth: 1
   },
-  title: {
-    fontSize: 20,
-    color: "#2d5f96",
-    fontWeight: "400"
-  },
   description: {
+    color: "#000",
     textAlign: "center",
     marginVertical: 15
   },
@@ -74,6 +70,12 @@ export default StyleSheet.create({
     flex: 1
   },
   descriptionCard: {},
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
   date: {
     display: "flex",
     textAlign: "right",

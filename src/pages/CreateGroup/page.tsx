@@ -50,8 +50,6 @@ const CreateGroup: FC = () => {
         <View style={styles.circle}>
           <MaterialIcons name="group-add" size={60} color="#4d6e92" />
         </View>
-
-        <Text style={[styles.title]}>Criar nova turma</Text>
         <Text style={[styles.description, styles.limitWidth]}>
           Preencha corretamente os campos abaixo e clique em
           &quot;Concluir&quot;

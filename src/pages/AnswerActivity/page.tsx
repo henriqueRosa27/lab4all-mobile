@@ -3,6 +3,7 @@ import { ActivityIndicator, ScrollView, Text, View, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useForm } from "react-hook-form";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { IconButton } from "react-native-paper";
 
 import styles from "./styles";
 import { TextInputComponent, ButtonComponent } from "../../components";
@@ -88,9 +89,24 @@ const CreateActivity: FC = () => {
     });
   }
 
+  const _resetImage = () => {
+    setSelectedImage(null);
+  };
+
   const renderBody = () => {
     return (
       <>
+        <TextInputComponent
+          label={"O que achou da atividade? *"}
+          control={control}
+          name={"note"}
+          placeholder={"O que achou da atividade?"}
+          autoCompleteType="name"
+          rules={rules.note}
+          editable={!loading && !hasAnswer}
+          error={errors?.note?.message}
+          defaultValue={data?.note}
+        />
         {!selectedImage && !hasAnswer ? (
           <ButtonComponent
             onPress={() => {
@@ -99,38 +115,54 @@ const CreateActivity: FC = () => {
             <Text style={styles.buttonText}>Inserir foto</Text>
           </ButtonComponent>
         ) : (
-          <View style={styles.containerCenter}>
+          <View
+            style={{
+              margin: 5,
+              width: 220,
+              height: 220,
+              alignContent: "center",
+              alignSelf: "center",
+              borderColor: "#000",
+              borderStyle: "solid",
+              borderWidth: 3,
+              borderRadius: 5
+            }}>
             <Image
+              resizeMode="cover"
               source={{ uri: hasAnswer ? data?.image : selectedImage }}
-              style={styles.image}
+              style={{
+                flex: 1
+              }}
             />
+            {!hasAnswer && (
+              <View
+                style={{
+                  position: "absolute",
+                  right: 5,
+                  backgroundColor: "transparent"
+                }}>
+                <IconButton
+                  icon="close-circle-outline"
+                  color="#000"
+                  size={25}
+                  onPress={_resetImage}
+                />
+              </View>
+            )}
           </View>
         )}
         {(selectedImage || hasAnswer) && (
-          <>
-            <TextInputComponent
-              label={"Algo a reportar *"}
-              control={control}
-              name={"note"}
-              placeholder={"Algo a reportar"}
-              autoCompleteType="name"
-              rules={rules.note}
-              editable={!loading && !hasAnswer}
-              error={errors?.note?.message}
-              defaultValue={data?.note}
-            />
-            <TextInputComponent
-              label={"Texto extraido"}
-              control={control}
-              name={"report"}
-              placeholder={"Texto extraido"}
-              autoCompleteType="name"
-              editable={!loading && !hasAnswer}
-              multiline={true}
-              numberOfLines={10}
-              defaultValue={data?.report}
-            />
-          </>
+          <TextInputComponent
+            label={"Texto extraido"}
+            control={control}
+            name={"report"}
+            placeholder={"Texto extraido"}
+            autoCompleteType="name"
+            editable={!loading && !hasAnswer}
+            multiline={true}
+            numberOfLines={10}
+            defaultValue={data?.report}
+          />
         )}
         {!hasAnswer && (
           <ButtonComponent
